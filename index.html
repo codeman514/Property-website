@@ -28,8 +28,15 @@
 </body>
 <script>
     let sql = "SELECT * FROM property";
-    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query:sql }) })
-        .then(response => response.text()).then(data=>{document.getElementById("data").textContent = data});
+    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
+        .then(response => response.json()).then(data => {
+            data.data.forEach(element => {
+                let newCard = document.createElement("div");
+                newCard.className = "card";
+                newCard.innerHTML = `<div>${element.name}</div><div>${element.price}</div>`;
+                document.getElementById("data").appendChild(newCard);
+            });
+        });
 </script>
 
 </html>

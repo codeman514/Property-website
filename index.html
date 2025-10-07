@@ -32,8 +32,8 @@
         .then(response => response.json()).then(data => {
             data.data.forEach(element => {
                 let newCard = document.createElement("div");
-                newCard.className = "card";
-                newCard.innerHTML = `<div>${element.name}</div><div>${element.price}</div>`;
+                newCard.className = "card w-25";
+                newCard.innerHTML = `<img src = ${element.url} alt = ${element.name}/><div>${element.name}</div><div>${element.price}</div>`;
                 document.getElementById("data").appendChild(newCard);
             });
         });

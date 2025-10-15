@@ -11,32 +11,53 @@
 </head>
 
 <body>
+    <div class="d-none" id="managementLoginTips">
+        <div id="managementLoginTipsContent">
+            <div class="d-flex justify-content-between">
+                <div class="h3 col-md-3">後台登入</div>
+                <button class="col-md-2" id="managementLoginCloseButton" onclick="CloseManagementLoginTips()">X</button>
+            </div>
+            <div>帳號(測試帳號:manager123)</div>
+            <input type="text" id="managementAccount">
+            <div>密碼(測試密碼:property123)</div>
+            <input type="password" id="managementPassword">
+            <button class="d-block" onclick="ManagementLogin()">登入</button>
+        </div>
+    </div>
+    <div class="d-none" id="propertyBookingTips">
+        <div id="propertyBookingTipsContent">
+        </div>
+    </div>
     <nav>
         <div class="row justify-content-between">
-            <div class="col-md-3 fs-1" id="homeLink">
+            <a href="index.html" class="col-auto fs-1" id="homeLink">
                 物業租售網
-            </div>
+            </a>
             <div class="col-md-4 fs-5">
-                <a href="login.html">會員登入</a>
-                <a href="register.html">會員注冊</a>
+                <a href="#" onclick="OpenManagementLoginTips()">後台管理登入</a>
             </div>
         </div>
     </nav>
     <main>
-        <div id="data" class="row"></div>
+        <div id="cover" class="row col-md-6 text-center align-items-center">
+            <div class="col-md-12 h1">優質盤源,為你提供最全面的物業租售資訊</div>
+            <form class="col-md-12 h3" onsubmit="SearchSubmit(event)">
+                <input type="text" id="SearchKeyword" placeholder="搜尋">
+                <button type="submit">搜尋</button>
+            </form>
+        </div>
+        <div class="w-50 card">
+            <div class="row">
+                <button class="col-md-6 btn btn-light active" id='buyButton'
+                    onclick="RefreshPropertyData('Buy')">我要買樓</button>
+                <button class="col-md-6 btn btn-light" id='rentButton'
+                    onclick="RefreshPropertyData('Rent')">我要租樓</button>
+            </div>
+            <div id="data" class="row"></div>
+        </div>
     </main>
+    <script src="indexScript.js">
+    </script>
 </body>
-<script>
-    let sql = "SELECT * FROM property";
-    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
-        .then(response => response.json()).then(data => {
-            data.data.forEach(element => {
-                let newCard = document.createElement("div");
-                newCard.className = "card w-25";
-                newCard.innerHTML = `<img src = ${element.url} alt = ${element.name}/><div>${element.name}</div><div>${element.price}</div>`;
-                document.getElementById("data").appendChild(newCard);
-            });
-        });
-</script>
 
 </html>

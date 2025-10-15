@@ -1,3 +1,40 @@
-#homeLink{
-    
+#homeLink {
+    margin: 0;
+    font-size: 40px;
+    color: rgb(25, 255, 29);
+    background-color: rgb(20, 100, 249);
+}
+
+#cover {
+    height: 40vh;
+    color:white;
+    background-color:rgb(3, 1, 57)
+}
+
+#managementLoginTips {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#managementLoginTipsContent {
+    width: 40%;
+    height: 50%;
+    margin: 10% 30%;
+    background-color: white;
+}
+#propertyBookingTips {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+#propertyBookingTipsContent {
+    width: 40%;
+    height: 60%;
+    margin: 10% 30%;
+    background-color: white;
 }

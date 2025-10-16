@@ -11,12 +11,12 @@ export default async function handler(req, res) {
     const { query } = req.body;
     const result = await pool.query(query);
     if (result.command === 'SELECT') {
-      return res.status(200).json({ data: result.rows });
+      return res.status(200).json({ success: true, data: result.rows });
     }
     else {
-      return res.status(200).json({ rowCount: result.rowCount });
+      return res.status(200).json({ success: true });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 }

@@ -13,7 +13,7 @@ function RefreshPropertyData(type) {
         document.getElementById("rentButton").classList.add("active");
     }
     let sql = `SELECT * FROM property WHERE '${type}'= ANY(tag)`;
-    fetch("/api/getData.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
+    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             document.getElementById("data").innerHTML = "";//重置資料表文字
             data.data.forEach(element => {
@@ -47,7 +47,7 @@ function ManagementLogin() {
     let account = document.getElementById("managementAccount").value;
     let password = document.getElementById("managementPassword").value;
     let sql = `SELECT * FROM management WHERE account="${account}" AND password="${password}"`;
-    fetch("/api/getData.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
+    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             if (data.success === true) {
                 window.location.href = "management.html";
@@ -83,7 +83,7 @@ function CustomerDataSend(propertyId) {
     let customerName = document.getElementById("customerName").value;
     let customerPhone = document.getElementById("customerPhone").value;
     let sql = `INSERT INTO customerContact(name, phone, propertyId) VALUES ("${customerName}", "${customerPhone}", "${propertyId}")`;
-    fetch("/api/getData.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
+    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             if (data.success === true) {
                 alert("資料送出成功,我們會盡快與您聯絡");
@@ -96,8 +96,8 @@ function CustomerDataSend(propertyId) {
 function SearchSubmit(event) {
     event.preventDefault();//防止表單提交後頁面重新整理
     let keyword = document.getElementById("SearchKeyword").value;
-    let sql = `SELECT * FROM property WHERE name LIKE "%${keyword}%" OR JSON_SEARCH(type, 'one', '%${keyword}%', NULL, '$[*]') IS NOT NULL`;
-    fetch("/api/getData.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
+    let sql = `SELECT * FROM property WHERE name LIKE '%${keyword}%' OR JSON_SEARCH(type, 'one', '%${keyword}%', NULL, '$[*]') IS NOT NULL`;
+    fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             document.getElementById("data").innerHTML = "";//重置資料表文字
             data.data.forEach(element => {

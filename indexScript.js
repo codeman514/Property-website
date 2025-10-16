@@ -96,7 +96,7 @@ function CustomerDataSend(propertyId) {
 function SearchSubmit(event) {
     event.preventDefault();//防止表單提交後頁面重新整理
     let keyword = document.getElementById("SearchKeyword").value;
-    let sql = `SELECT * FROM property WHERE name LIKE '%${keyword}%' OR JSON_SEARCH(type, 'one', '%${keyword}%', NULL, '$[*]') IS NOT NULL`;
+    let sql = `SELECT * FROM property WHERE name ILIKE '%${keyword}%' OR EXISTS (SELECT 1 FROM unnest(tag) AS t WHERE t ILIKE '%${keyword}%');`;
     fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             document.getElementById("data").innerHTML = "";//重置資料表文字

@@ -82,7 +82,7 @@ function ClosePropertyBookinTips() {
 function CustomerDataSend(propertyId) {
     let customerName = document.getElementById("customerName").value;
     let customerPhone = document.getElementById("customerPhone").value;
-    let sql = `INSERT INTO customerContact(name, phone, propertyId) VALUES ("${customerName}", "${customerPhone}", "${propertyId}")`;
+    let sql = `INSERT INTO "customerContact"(name, phone, "propertyId") VALUES ('${customerName}', '${customerPhone}', '${propertyId}')`;
     fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             if (data.success === true) {

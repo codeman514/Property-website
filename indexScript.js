@@ -46,7 +46,7 @@ function CloseManagementLoginTips() {
 function ManagementLogin() {
     let account = document.getElementById("managementAccount").value;
     let password = document.getElementById("managementPassword").value;
-    let sql = `SELECT * FROM management WHERE account="${account}" AND password="${password}"`;
+    let sql = `SELECT * FROM management WHERE account='${account}' AND password='${password}'`;
     fetch("/api/getData", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: sql }) })
         .then(response => response.json()).then(data => {
             if (data.success === true) {

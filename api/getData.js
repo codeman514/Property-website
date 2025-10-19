@@ -11,7 +11,12 @@ export default async function handler(req, res) {
     const { query } = req.body;
     const result = await pool.query(query);
     if (result.command === 'SELECT') {
-      return res.status(200).json({ success: true, data: result.rows });
+      if (result.rows.length > 0) {
+        return res.status(200).json({ success: true, data: result.rows });
+      }
+      else {
+        return res.status(200).json({ success: false });
+      }
     }
     else {
       return res.status(200).json({ success: true });
